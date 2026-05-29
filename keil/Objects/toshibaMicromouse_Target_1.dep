@@ -1,0 +1,37 @@
+Dependencies for Project 'toshibaMicromouse', Target 'Target_1': (DO NOT MODIFY !)
+CompilerVersion: 6240000::V6.24::ARMCLANG
+F (..\src\main.c)(0x6A18C045)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include -I C:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-I./RTE/_Target_1-IC:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include-D__UVISION_VERSION="543" -DTMPM4KNA -D_RTE_ -DTMPM4KNA-o ./objects/main.o -MMD)
+I (..\src\TMPM4KyA.h)(0x682BE9F5)
+I (..\src\TMPM4KNA.h)(0x682BE9F5)
+I (..\src\core_cm4.h)(0x69DD4643)
+I (..\src\system_TMPM4KyA.h)(0x682BE9F5)
+I (..\src\drivers\gpio.h)(0x6A14FD66)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KyA.h)(0x682BE9F5)
+I (..\src\drivers\timer32A.h)(0x6A14F780)
+I (..\src\drivers\encoder32A.h)(0x6A18BE1C)
+F (..\src\drivers\timer32A.c)(0x6A14F785)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include -I C:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-I./RTE/_Target_1-IC:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include-D__UVISION_VERSION="543" -DTMPM4KNA -D_RTE_ -DTMPM4KNA-o ./objects/timer32a.o -MMD)
+I (..\src\drivers\timer32A.h)(0x6A14F780)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KyA.h)(0x682BE9F5)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KNA.h)(0x682BE9F5)
+I (C:\Keil_v5\Kiel_Arm_Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x69DD4643)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\system_TMPM4KyA.h)(0x682BE9F5)
+F (..\src\drivers\timer32A.h)(0x6A14F780)()
+F (..\src\drivers\encoder32A.c)(0x6A18BFDA)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include -I C:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-I./RTE/_Target_1-IC:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include-D__UVISION_VERSION="543" -DTMPM4KNA -D_RTE_ -DTMPM4KNA-o ./objects/encoder32a.o -MMD)
+I (..\src\drivers\encoder32A.h)(0x6A18BE1C)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KyA.h)(0x682BE9F5)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KNA.h)(0x682BE9F5)
+I (C:\Keil_v5\Kiel_Arm_Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x69DD4643)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\system_TMPM4KyA.h)(0x682BE9F5)
+F (..\src\drivers\gpio.c)(0x6A151212)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include -I C:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-I./RTE/_Target_1-IC:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include-D__UVISION_VERSION="543" -DTMPM4KNA -D_RTE_ -DTMPM4KNA-o ./objects/gpio.o -MMD)
+I (..\src\drivers\gpio.h)(0x6A14FD66)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KyA.h)(0x682BE9F5)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KNA.h)(0x682BE9F5)
+I (C:\Keil_v5\Kiel_Arm_Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x69DD4643)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\system_TMPM4KyA.h)(0x682BE9F5)
+F (RTE/Device/TMPM4KNF10AFG/TMPM4KNA.scat)(0x6A029441)()
+F (RTE/Device/TMPM4KNF10AFG/startup_TMPM4KNA.s)(0x682BE9F5)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto  -Wa,armasm,--diag_suppress=A1950W -c-gdwarf-4 -Wa,armasm,--pd,"__EVAL SETA 1"-I./RTE/_Target_1-IC:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 543" -Wa,armasm,--pd,"TMPM4KNA SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o ./objects/startup_tmpm4kna.o)
+F (RTE/Device/TMPM4KNF10AFG/system_TMPM4KyA.c)(0x6A0B5CCF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include -I C:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-I./RTE/_Target_1-IC:/Keil_v5/Kiel_Arm_Pack/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Keil_v5/Kiel_Arm_Pack/Toshiba/TXZ4Aplus-M4K2_DFP/1.0.1/Device/Include-D__UVISION_VERSION="543" -DTMPM4KNA -D_RTE_ -DTMPM4KNA-o ./objects/system_tmpm4kya.o -MMD)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KyA.h)(0x682BE9F5)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\TMPM4KNA.h)(0x682BE9F5)
+I (C:\Keil_v5\Kiel_Arm_Pack\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x69DD4643)
+I (C:\Keil_v5\Kiel_Arm_Pack\Toshiba\TXZ4Aplus-M4K2_DFP\1.0.1\Device\Include\system_TMPM4KyA.h)(0x682BE9F5)

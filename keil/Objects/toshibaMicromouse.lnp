@@ -1,0 +1,11 @@
+--cpu=Cortex-M4.fp.sp
+".\objects\main.o"
+".\objects\timer32a.o"
+".\objects\encoder32a.o"
+".\objects\gpio.o"
+".\objects\startup_tmpm4kna.o"
+".\objects\system_tmpm4kya.o"
+--strict --scatter ".\RTE\Device\TMPM4KNF10AFG\TMPM4KNA.scat"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\toshibaMicromouse.map" -o .\Objects\toshibaMicromouse.axf

@@ -25,20 +25,20 @@
  * Check Product Info. for ADC
  * 
  * Target: Single Conversion ADC
- * Optional: Use DMA
+ * Use DMA
  * */
 
 /* Inclusions */
 #include "adc.h"   
 #include "systick.h"
-
-
+#include "dma.h"   
 
 
 void ADC_Init(void)
 {
-    AINA_Init();
-    AINC_Init();
+    AINA_Init();        // With DMA
+    AINC_Init();        // With DMA
+    /* Insert ADC DMA */
 }
 
 /**
@@ -93,10 +93,13 @@ void AINA_Init(void)
 
     
     /* [3] General Purpose Start-up Factor Program Register - Conversion program setting */
-    TSB_ADA->TSET0 = (ADxTSETn_TRGSn_SGL | ADxTSETn_AINSTn_AINx16);            //AINA16
-    TSB_ADA->TSET1 = (ADxTSETn_TRGSn_SGL | ADxTSETn_AINSTn_AINx15);            //AINA15
+    TSB_ADA->TSET0 = (ADxTSETn_TRGSn_SGL | ADxTSETn_AINSTn_AINx16);                                   //AINA16
+    TSB_ADA->TSET1 = (ADxTSETn_TRGSn_SGL | ADxTSETn_AINSTn_AINx15 | ADxTSETn_ENINTn_MASK);            //AINA15 - Interrupt Enable
 
-    /* [4] Enable Conversion */
+    /* [4] D.M.A Request */
+    TSB_ADA->CR1 = ADxCR1_SGLDMEN;
+
+    /* [5] Enable Conversion */
     TSB_ADA->CR0 |= ADxCR0_ADEN;
 }
 
@@ -122,7 +125,7 @@ void AINC_Init(void)
     /* [1.5] Sampling & Conversion Time */
     TSB_ADC->CLK |= ADXCLK_EXAZ0_40MHZ | ADXCLK_EXAZ1_40MHZ;
 
-    
+
     /* [2:] AD converter Ckt. Config */
     /* [2.1] Mode Config */
     TSB_ADC->MOD0 |= ADxMOD0_DACON;
@@ -142,9 +145,12 @@ void AINC_Init(void)
     TSB_ADC->TSET0 = (ADxTSETn_TRGSn_SGL | ADxTSETn_AINSTn_AINx01);
     
     /* Configure TSET1 for AINC00 */
-    TSB_ADC->TSET1 = (ADxTSETn_TRGSn_SGL | ADxTSETn_AINSTn_AINx00);
+    TSB_ADC->TSET1 = (ADxTSETn_TRGSn_SGL | ADxTSETn_AINSTn_AINx00 | ADxTSETn_ENINTn_MASK);      // Interrupt Enable
 
-    /* [4] Enable Conversion */
+    /* [4] D.M.A Request */
+    TSB_ADC->CR1 = ADxCR1_SGLDMEN;
+
+    /* [5] Enable Conversion */
     TSB_ADC->CR0 |= ADxCR0_ADEN;
 }
 
@@ -206,4 +212,16 @@ uint16_t AINC_Read(uint8_t channel)
     }
     
     return result;
+}
+
+
+
+/* IRQ Handler */
+void INTADASGL_IRQHandler(void)
+{
+    /* Acknowledge */
+}
+void INTADCSGL_IRQHandler(void)
+{
+    /* Acknowledge */
 }

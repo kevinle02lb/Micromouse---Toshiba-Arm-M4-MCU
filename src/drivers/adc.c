@@ -38,7 +38,8 @@ void ADC_Init(void)
 {
     AINA_Init();        // With DMA
     AINC_Init();        // With DMA
-    /* Insert ADC DMA */
+    /* ADC DMA */
+    DMA_SetupForADC();
 }
 
 /**
@@ -165,6 +166,14 @@ void AINC_StartSGL(void)
 }
 
 
+/* Start a conversion — DMA will automatically transfer results when done */
+void start_sampling(void)
+{
+    AINA_StartSGL();    /* Writes ADACR0.SGL = 1 */
+    AINC_StartSGL();    /* Writes ADCCR0.SGL = 1 */
+}
+
+
 uint16_t AINA_Read(uint8_t channel)
 {
     uint16_t result = 0;
@@ -225,3 +234,16 @@ void INTADCSGL_IRQHandler(void)
 {
     /* Acknowledge */
 }
+
+
+
+// void process_results(void)
+// {
+//     volatile uint16_t* a_buf = DMA_GetADCABuffer();
+//     volatile uint16_t* c_buf = DMA_GetADCCBuffer();
+    
+//     uint16_t aina16 = (a_buf[0] >> 4) & 0xFFF;  /* Result is in bits [15:4] */
+//     uint16_t aina15 = (a_buf[1] >> 4) & 0xFFF;
+//     uint16_t ainc01 = (c_buf[0] >> 4) & 0xFFF;
+//     uint16_t ainc00 = (c_buf[1] >> 4) & 0xFFF;
+// }

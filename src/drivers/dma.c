@@ -30,7 +30,7 @@ __attribute__((aligned(1024))) static DMA_ChnlCtrlData_TypeDef DMA_CtrlTable[DMA
 
 
 /* Define necessary variables */
-/* Buffers for ADC results - placed in RAM for DMA access */
+/* Buffers for ADC results - placed in RAM for DMA access (2 Bytes)*/
 static volatile uint16_t adc_a_buffer[2];               /* AINA16, AINA15 */
 static volatile uint16_t adc_c_buffer[2];               /* AINC01, AINC00 */
 
@@ -62,25 +62,6 @@ void DMAC_Init(void)
 
 
 
-
-/**
- * @brief  Configure a DMA channel's primary control data
- * @note   Writes SrcEndPtr, DstEndPtr, and ChnlCfg into the control table.
- *         The DMA controller reads this table autonomously when a request fires.
- */
-void DMA_ConfigChannel(uint8_t channel, uint32_t src_end, uint32_t dst_end, uint32_t chnl_cfg)
-{
-    if (channel >= DMA_CHANNEL_COUNT) return;
-    
-    DMA_CtrlTable[channel].SrcEndPtr = src_end;
-    DMA_CtrlTable[channel].DstEndPtr = dst_end;
-    DMA_CtrlTable[channel].ChnlCfg   = chnl_cfg;
-    /* RESERVED field at offset +12 — do NOT write to it */
-}
-
-
-
-
 /**
  * @brief  Set up DMA channels 16 and 18 for ADC Unit A and Unit C
  * @details
@@ -105,7 +86,7 @@ void DMA_SetupForADC(void)
 {
     /* Common ChnlCfg for both ADC units */
     uint32_t chnl_cfg = DMA_DST_INC_HWORD      /* dest: +2 bytes per transfer */
-                      | DMA_DST_SIZE_HWORD     /* dest: 16-bit writes */
+                      | DMA_DST_SIZE_HWORD     /* dest: 16-bit writes - Destination of adc_x_buffer array */
                       | DMA_SRC_INC_WORD       /* src: +4 bytes (REG0 → REG1) */
                       | DMA_SRC_SIZE_HWORD     /* src: 16-bit reads (lower half of 32-bit reg) */
                       | DMA_R_POWER_4          /* arbitrate after 4 transfers */
@@ -113,18 +94,35 @@ void DMA_SetupForADC(void)
                       | DMA_NEXT_USEBURST      /* bit 3 = 1: force burst */
                       | DMA_CYCLE_CTRL_CNT;    /* cycle_ctrl = 010: Continuation Normal */
 
-    /* Channel 16: ADC Unit A — Single Conversion DMA request (ADASGL_DMAREQ) */
+    /* Channel 16: ADC Unit A - Single Conversion DMA request (ADASGL_DMAREQ) */
     DMA_ConfigChannel(DMA_ADASLG_DMAREQ,
                      (uint32_t)&TSB_ADA->REG1,       /* Source end address */
                      (uint32_t)&adc_a_buffer[1],     /* Dest end address */
                      chnl_cfg);
 
-    /* Channel 18: ADC Unit C — Single Conversion DMA request (ADCSGL_DMAREQ) */
+    /* Channel 18: ADC Unit C - Single Conversion DMA request (ADCSGL_DMAREQ) */
     DMA_ConfigChannel(DMA_ADCSLG_DMAREQ,
                      (uint32_t)&TSB_ADC->REG1,
                      (uint32_t)&adc_c_buffer[1],
                      chnl_cfg);
 }
+
+
+/**
+ * @brief  Configure a DMA channel's primary control data
+ * @note   Writes SrcEndPtr, DstEndPtr, and ChnlCfg into the control table.
+ *         The DMA controller reads this table autonomously when a request fires.
+ */
+void DMA_ConfigChannel(uint8_t channel, uint32_t src_end, uint32_t dst_end, uint32_t chnl_cfg)
+{
+    if (channel >= DMA_CHANNEL_COUNT) return;
+    
+    DMA_CtrlTable[channel].SrcEndPtr = src_end;
+    DMA_CtrlTable[channel].DstEndPtr = dst_end;
+    DMA_CtrlTable[channel].ChnlCfg   = chnl_cfg;
+    /* RESERVED field at offset +12 - do NOT write to it */
+}
+
 
 /**
  * @brief  Get pointer to ADC Unit A DMA result buffer
@@ -135,7 +133,6 @@ volatile uint16_t* DMA_GetADCABuffer(void)
 {
     return adc_a_buffer;
 }
-
 /**
  * @brief  Get pointer to ADC Unit C DMA result buffer
  * @return volatile uint16_t* pointing to adc_c_buffer[0]

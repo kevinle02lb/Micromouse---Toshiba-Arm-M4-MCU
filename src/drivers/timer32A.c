@@ -280,7 +280,11 @@ void T32A1_Interrupt_Enable(void)
 }
 
 
-
+/**
+ * @brief  IRQ Handler for T32A Channel 1 Timer C
+ * @param
+ * @note   Toggles boolean for flag/status
+ */
 void INTT32A01AC_IRQHandler(void)
 {
     /* Acknowledge Flag */

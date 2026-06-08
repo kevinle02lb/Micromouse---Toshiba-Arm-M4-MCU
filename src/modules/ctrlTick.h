@@ -17,10 +17,7 @@
 #ifndef CtrlTick_H
 #define CtrlTick_H
 
-#include "TMPM4KyA.h"
-#include <stdint.h>
 #include <stdbool.h>
-#include "drivers/timer32A.h"
 
 void CtrlTick_Init(void);
 bool CtrlTick_GetAndClear(void);

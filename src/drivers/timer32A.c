@@ -27,6 +27,7 @@
  */
 
 #include "timer32A.h"
+#include "gpio.h"
 
 volatile bool T32A01AC_IRQ_Fire = 0;
 
@@ -59,6 +60,8 @@ void T32A_Init(void)
  */
 void T32A0_Init(uint16_t period)
 {
+    PORT_A_Init();
+
     /* [1] Clock enable, stop timer */
     TSB_CG->FSYSMENA |= T32A0_CG_FSYSMENA_IPMENA28;
     TSB_T32A0->RUNA &= ~T32A_RUNx_MASK;
@@ -113,6 +116,8 @@ void T32A0_Init(uint16_t period)
  */
 void T32A3_Init(uint16_t period)
 {
+    PORT_C_Init();
+
     /* [1] Clock enable, stop timer */
     TSB_CG->FSYSMENA |= T32A3_CG_FSYSMENA_IPMENA31;
     TSB_T32A3->RUNA &= ~T32A_RUNx_MASK;

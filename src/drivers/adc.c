@@ -36,6 +36,7 @@
 #include "adc.h"
 #include "systick.h"
 #include "dma.h"
+#include "gpio.h"
 
 /* ==========================================================================
  *   INTERRUPT NOTES (Read this first)
@@ -105,6 +106,9 @@ void ADC_Init(void)
  */
 void AINA_Init(void)
 {
+    /* GPIO ADC inputs (Unit A) */
+    PORT_L_Init();      
+
     /* [1] Enable ADC Unit A peripheral clock */
     TSB_CG->FSYSMENB |= AINA_CG_FSYSMENB_IPMENB02;
 
@@ -154,6 +158,9 @@ void AINA_Init(void)
  */
 void AINC_Init(void)
 {
+    /* GPIO ADC inputs (Unit C) */
+    PORT_J_Init();  
+
     /* [1] Enable ADC Unit C peripheral clock */
     TSB_CG->FSYSMENB |= AINC_CG_FSYSMENB_IPMENB04;
 

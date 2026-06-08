@@ -14,6 +14,7 @@
  */
 
 #include "ctrlTick.h"
+#include "drivers/timer32A.h"
 
 /**
  * @brief  Starts T32A1 Timer 
@@ -21,6 +22,7 @@
  */
 void CtrlTick_Init(void)
 {
+    T32A1_Init();       /* Interval Timer Interrupt */
     T32A1_Start();      /* Timer already configured by T32A_Init() */
 }
 

@@ -61,24 +61,42 @@
 #include "drivers/gpio.h"
 #include "drivers/timer32A.h"
 #include "drivers/encoder32A.h"
+#include "drivers/dma.h"
+#include "drivers/adc.h"
 
+
+void DriverInit(void);
 
 int main()
 {
 	SystemInit();								/* Initialize system clock and peripherals */
-	GPIO_Init();								/* Initialize GPIO pins for motors, encoders, and IR sensors */
-	T32A_Init();
-	ENC32A_Init();
+	DriverInit();
 
+	CtrlTick_Init();
 
 	while(1)
 	{
-		
+		if (CtrlTick_GetAndClear()) 
+		{
+            /* control Logic to be implemented */
+        }
 	}
 
 	return 0;
 }
 
+/**
+ * @brief  Initializes the Drivers
+ * @note   
+ */
+void DriverInit(void)
+{
+	GPIO_Init();		/* GPIO     */
+	T32A_Init();		/* Timer32A */
+	ENC32A_Init();		/* Encoder  */
+	DMAC_Init();		/* Direct Memory Access Controller  */
+	ADC_Init();			/* Analog to Discrete */
+}
 
 
 

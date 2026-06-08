@@ -1,3 +1,23 @@
-/* Set duty cycle for Timer32A channel 3 PWM output */
-    // Duty [%] = (RGx1 - RGx0) / (RGx1 - RELDx) * 100
-    // RGx0 = RGx1 - (Duty [%] * RGx1 / 100)
+/**
+ * @file        motor.c
+ * @brief       Motor controls that toggles the direction and speed of the motors
+ * @version     V1.0.0
+ * @date        08-06-2026
+ *
+ * @details
+ * @note
+ *   
+ *
+ *   File structure and Doxygen formatting assisted by AI.
+ *
+ * Copyright (c) [Kevin Le] 2026
+ */
+
+#include "motor.h"
+#include "drivers/timer32A.h"
+
+
+void Motor_Init(void)
+{
+    
+}

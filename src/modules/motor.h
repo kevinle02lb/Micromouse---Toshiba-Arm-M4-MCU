@@ -1,24 +1,55 @@
 /**
- * @file        motor.c
- * @brief       Motor controls that toggles the direction and speed of the motors
+ * @file        motor.h
+ * @brief       Motor control API for TB67H450AFNG H-bridge drivers
  * @version     V1.0.0
  * @date        08-06-2026
  *
  * @details
- * @note
- *   
+ *   High-level motor control. No register access — all hardware calls
+ *   go through timer32A.h.
  *
- *   File structure and Doxygen formatting assisted by AI.
+ *   Wiring (from schematic):
+ *     Left  motor: PA3=IN1=TimerA, PA4=IN2=TimerB, OUT2=M1(+)
+ *     Right motor: PC3=IN1=TimerA, PC4=IN2=TimerB, OUT2=M1(+)
+ *
+ *   Datasheet truth table (TB67H450AFNG):
+ *     IN1=H, IN2=L  →  Forward  (OUT1=H, OUT2=L, current OUT1→OUT2)
+ *     IN1=L, IN2=H  →  Reverse  (OUT1=L, OUT2=H, current OUT2→OUT1)
+ *     IN1=H, IN2=H  →  Brake    (both outputs L, motor shorted)
+ *     IN1=L, IN2=L  →  Stop     (Hi-Z, enters standby after t_stby)
+ *
+ *   Because OUT2 is wired to M1(+) and the motor's "+" terminal,
+ *   the code's FORWARD/REVERSE labels are swapped from the datasheet
+ *   to make M1(+) the positive terminal during "forward" motion.
  *
  * Copyright (c) [Kevin Le] 2026
  */
-
 
 #ifndef MOTOR_H
 #define MOTOR_H
 
 #include <stdint.h>
 
+typedef enum
+{
+    MOTOR_LEFT  = 0,   /*!< T32A0 — PA3 (TimerA/IN1), PA4 (TimerB/IN2) */
+    MOTOR_RIGHT = 1    /*!< T32A3 — PC2 (TimerA/IN1), PC3 (TimerB/IN2) */
+} motor_t;
+
+typedef enum
+{
+    FORWARD = 0,   /*!< Robot forward  (datasheet reverse: IN2=PWM, IN1=LOW) */
+    REVERSE,       /*!< Robot reverse  (datasheet forward: IN1=PWM, IN2=LOW) */
+    BRAKE,         /*!< Active brake   (IN1=HIGH, IN2=HIGH, motor shorted) */
+    STOP           /*!< Stop/standby   (IN1=LOW,  IN2=LOW,  Hi-Z output) */
+} direction_t;
+
 void Motor_Init(void);
+void Motor_Start(void);
+void Motor_Stop(void);
+
+void Motor_Set(motor_t motor, direction_t dir, uint8_t speed);
+void Motor_SetLeft(direction_t dir, uint8_t speed);
+void Motor_SetRight(direction_t dir, uint8_t speed);
 
 #endif /* MOTOR_H */

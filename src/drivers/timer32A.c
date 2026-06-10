@@ -31,6 +31,9 @@
 
 volatile bool T32A01AC_IRQ_Fire = 0;
 
+#define PERIOD                  T32A_CH0_PERIOD
+
+
 /* ==========================================================================
  *   Initialization
  * ========================================================================== */
@@ -70,7 +73,7 @@ void T32A0_Init(uint16_t period)
 
     /* [2] 16-bit mode */
     TSB_T32A0->MOD &= ~T32A_MODE_MASK;
-    TSB_T32A0->MOD |= (T32A_MODE32 & T32A_MODE_MASK);
+    TSB_T32A0->MOD |= (T32A_MODE_16BIT & T32A_MODE_MASK);
 
     /* [3] Prescaler, direction, double-buffer */
     TSB_T32A0->CRA &= ~T32A_CRx_PRSCLC_MASK;
@@ -104,9 +107,9 @@ void T32A0_Init(uint16_t period)
     TSB_T32A0->OUTCRB0 &= ~T32A_OUTCRx0_ORCx_MASK;
 
     TSB_T32A0->OUTCRA1 = (TSB_T32A0->OUTCRA1 & ~T32A_OUTCRx1_MASK) |
-                         T32A_OUTPUT_PPG;
+                         T32A_OUTPUT_LOW;
     TSB_T32A0->OUTCRB1 = (TSB_T32A0->OUTCRB1 & ~T32A_OUTCRx1_MASK) |
-                         T32A_OUTPUT_PPG;
+                         T32A_OUTPUT_LOW;
 }
 
 /**
@@ -126,7 +129,7 @@ void T32A3_Init(uint16_t period)
 
     /* [2] 16-bit mode */
     TSB_T32A3->MOD &= ~T32A_MODE_MASK;
-    TSB_T32A3->MOD |= (T32A_MODE32 & T32A_MODE_MASK);
+    TSB_T32A3->MOD |= (T32A_MODE_16BIT & T32A_MODE_MASK);
 
     /* [3] Prescaler, direction, double-buffer */
     TSB_T32A3->CRA &= ~T32A_CRx_PRSCLC_MASK;
@@ -160,9 +163,9 @@ void T32A3_Init(uint16_t period)
     TSB_T32A3->OUTCRB0 &= ~T32A_OUTCRx0_ORCx_MASK;
 
     TSB_T32A3->OUTCRA1 = (TSB_T32A3->OUTCRA1 & ~T32A_OUTCRx1_MASK) |
-                         T32A_OUTPUT_PPG;
+                         T32A_OUTPUT_LOW;
     TSB_T32A3->OUTCRB1 = (TSB_T32A3->OUTCRB1 & ~T32A_OUTCRx1_MASK) |
-                         T32A_OUTPUT_PPG;
+                         T32A_OUTPUT_LOW;
 }
 
 /**
@@ -179,7 +182,7 @@ void T32A1_Init(void)
 
     /* [2] 32-bit Mode */
     TSB_T32A1->MOD &= ~T32A_MODE_MASK;
-    TSB_T32A1->MOD |= (T32A1_MODE_SEL & T32A_MODE_MASK);
+    TSB_T32A1->MOD |= (T32A_MODE_32BIT & T32A_MODE_MASK);
 
     /* [3] Prescaler, Direction, double-buffer */
     TSB_T32A1->CRC &= ~T32A_CRx_PRSCLC_MASK;
@@ -199,21 +202,63 @@ void T32A1_Init(void)
 
     /* [6] Interrupt */
     T32A1_Interrupt_Enable();
-
-    /* Start */
-
 }
 
 /* ==========================================================================
  *   Run Control
  * ========================================================================== */
 
-void T32A0_Start(void)  { TSB_T32A0->RUNA |= T32A_RUNx_MASK; }
-void T32A3_Start(void)  { TSB_T32A3->RUNA |= T32A_RUNx_MASK; }
-void T32A1_Start(void)  { TSB_T32A1->RUNA |= T32A_RUNx_MASK; }
-void T32A0_Stop(void)   { TSB_T32A0->RUNA &= ~T32A_RUNx_MASK; }
-void T32A3_Stop(void)   { TSB_T32A3->RUNA &= ~T32A_RUNx_MASK; }
-void T32A1_Stop(void)   { TSB_T32A1->RUNC &= ~T32A_RUNx_MASK; }
+void T32A0_Start(void)
+{
+    TSB_T32A0->RUNA |= T32A_RUNx_MASK;      /* Enable */
+    TSB_T32A0->RUNA |= T32A_RUNx_SFTSTAx;   /* Software trigger */
+    TSB_T32A0->RUNB |= T32A_RUNx_MASK;
+    TSB_T32A0->RUNB |= T32A_RUNx_SFTSTAx;
+
+    /* Wait until BOTH A and B are running */
+    while (!(TSB_T32A0->RUNA & T32A_RUNx_RUNFLGx_MASK) ||
+           !(TSB_T32A0->RUNB & T32A_RUNx_RUNFLGx_MASK)) { ; }
+}
+
+void T32A3_Start(void)
+{
+    TSB_T32A3->RUNA |= T32A_RUNx_MASK;
+    TSB_T32A3->RUNA |= T32A_RUNx_SFTSTAx;
+    TSB_T32A3->RUNB |= T32A_RUNx_MASK;
+    TSB_T32A3->RUNB |= T32A_RUNx_SFTSTAx;
+
+    while (!(TSB_T32A3->RUNA & T32A_RUNx_RUNFLGx_MASK) ||
+           !(TSB_T32A3->RUNB & T32A_RUNx_RUNFLGx_MASK)) { ; }
+}
+
+void T32A1_Start(void)
+{
+    TSB_T32A1->RUNC |= T32A_RUNx_MASK;
+    TSB_T32A1->RUNC |= T32A_RUNx_SFTSTAx;
+    while (!(TSB_T32A1->RUNC & T32A_RUNx_RUNFLGx_MASK)) { ; }
+}
+
+void T32A0_Stop(void)
+{
+    TSB_T32A0->RUNA &= ~T32A_RUNx_MASK;
+    TSB_T32A0->RUNB &= ~T32A_RUNx_MASK;
+    while ((TSB_T32A0->RUNA & T32A_RUNx_RUNFLGx_MASK) ||
+           (TSB_T32A0->RUNB & T32A_RUNx_RUNFLGx_MASK)) { ; }
+}
+
+void T32A3_Stop(void)
+{
+    TSB_T32A3->RUNA &= ~T32A_RUNx_MASK;
+    TSB_T32A3->RUNB &= ~T32A_RUNx_MASK;
+    while ((TSB_T32A3->RUNA & T32A_RUNx_RUNFLGx_MASK) ||
+           (TSB_T32A3->RUNB & T32A_RUNx_RUNFLGx_MASK)) { ; }
+}
+
+void T32A1_Stop(void)
+{
+    TSB_T32A1->RUNC &= ~T32A_RUNx_MASK;
+    while (TSB_T32A1->RUNC & T32A_RUNx_RUNFLGx_MASK) { ; }
+}
 
 /* ==========================================================================
  *   Compare Value Setters (Duty Cycle)

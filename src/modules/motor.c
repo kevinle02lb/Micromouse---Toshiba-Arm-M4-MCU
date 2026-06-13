@@ -56,7 +56,7 @@ static inline uint16_t Speed_ToDuty(uint8_t speed, uint16_t period)
     if (speed >= MAX_SPEED)
         return (uint16_t)(period - 1U);
 
-    return (uint16_t)((uint32_t)speed * (uint32_t)(period - 1U) / (uint32_t)MAX_SPEED);
+    return (uint16_t)(period - 1U - ((uint32_t)speed * (uint32_t)(period - 1U) / (uint32_t)MAX_SPEED));     /* Inverted: Period - duty ticks */
 }
 
 /* ==========================================================================

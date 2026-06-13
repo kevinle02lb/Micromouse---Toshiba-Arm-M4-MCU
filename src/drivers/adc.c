@@ -11,6 +11,9 @@
  *   Pin Assignments:
  *   - Unit A: PL0 (AINA16), PL1 (AINA15) — Left IR sensors
  *   - Unit C: PJ0 (AINC00), PJ1 (AINC01) — Right IR sensors
+ *  
+ *   - PL0 = Far Left IR, PL1 = Left IR (Left ADC)
+ *   - PJ1 = Right IR, PJ0 = Far Right IR (Right ADC)
  *
  *   Reference Documents (Toshiba):
  *   - Product Info:  https://toshiba.semicon-storage.com/info/TXZP-PINFO-M4K(2)_en_20231225.pdf?did=70854

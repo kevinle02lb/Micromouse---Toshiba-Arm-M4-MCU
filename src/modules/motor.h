@@ -9,8 +9,8 @@
  *   go through timer32A.h.
  *
  *   Wiring (from schematic):
- *     Left  motor: PA3=IN1=TimerA, PA4=IN2=TimerB, OUT2=M1(+)
- *     Right motor: PC3=IN1=TimerA, PC4=IN2=TimerB, OUT2=M1(+)
+ *     Left  motor: PA3 (TimerA / IN1), PA4= (TimerB / IN2), OUT2=M1(+)
+ *     Right motor: PC2 (TimerA / IN1), PC3 (TimerB / IN2), OUT2=M1(+)
  *
  *   Datasheet truth table (TB67H450AFNG):
  *     IN1=H, IN2=L  →  Forward  (OUT1=H, OUT2=L, current OUT1→OUT2)
@@ -38,8 +38,8 @@ typedef enum
 
 typedef enum
 {
-    FORWARD = 0,   /*!< Robot forward  (datasheet reverse: IN2=PWM, IN1=LOW) */
-    REVERSE,       /*!< Robot reverse  (datasheet forward: IN1=PWM, IN2=LOW) */
+    FORWARD = 0,   /*!< Forward  (datasheet reverse: IN2=PWM, IN1=LOW) */
+    REVERSE,       /*!< Reverse  (datasheet forward: IN1=PWM, IN2=LOW) */
     BRAKE,         /*!< Active brake   (IN1=HIGH, IN2=HIGH, motor shorted) */
     STOP           /*!< Stop/standby   (IN1=LOW,  IN2=LOW,  Hi-Z output) */
 } direction_t;

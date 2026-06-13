@@ -62,7 +62,6 @@
 /* Inclutions */
 #include "TMPM4KyA.h"
 #include "system_TMPM4KyA.h"
-#include "drivers/gpio.h"
 
 
 
@@ -73,7 +72,7 @@ int main()
 
 	while(1)
 	{
-		if (CtrlTick_GetAndClear()) 
+		if ( CtrlTick_GetAndClear() ) 
 		{
             /* control Logic to be implemented */
         }

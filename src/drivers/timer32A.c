@@ -31,8 +31,6 @@
 
 volatile bool T32A01AC_IRQ_Fire = 0;
 
-#define PERIOD                  T32A_CH0_PERIOD
-
 
 /* ==========================================================================
  *   Initialization

@@ -23,6 +23,7 @@
  */
 
 #include "encoder32A.h"
+#include "gpio.h"
 
 /* ==========================================================================
  *   IMPORTANT NOTE
@@ -43,6 +44,8 @@ void ENC32A_Init(void)
 
 void ENC0_Init(void)
 {
+    PORT_N_Init();
+    
     /* [1] Enable peripheral clock */
     TSB_CG->FSYSMENB |= ENC0_CG_FSYSMENB_IPMENB06;
 
@@ -73,6 +76,8 @@ void ENC0_Init(void)
 
 void ENC2_Init(void)
 {
+    PORT_D_Init();
+
     /* [1] Enable peripheral clock */
     TSB_CG->FSYSMENB |= ENC2_CG_FSYSMENB_IPMENB08;
 

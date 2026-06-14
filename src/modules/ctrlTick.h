@@ -1,5 +1,5 @@
 /**
- * @file        ctrlTick.c
+ * @file        ctrlTick.h
  * @brief       ctrlTick in main.c to indicate when logic should update.
  * @version     V1.0.0
  * @date        29-05-2026
@@ -17,10 +17,7 @@
 #ifndef CtrlTick_H
 #define CtrlTick_H
 
-#include "TMPM4KyA.h"
-#include <stdint.h>
 #include <stdbool.h>
-#include "drivers/timer32A.h"
 
 void CtrlTick_Init(void);
 bool CtrlTick_GetAndClear(void);

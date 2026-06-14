@@ -15,7 +15,7 @@
  *   - MCU:     TMPM4KNF10AFG (ARM Cortex-M4, 5V, 120MHz)
  *   - Motors:  TB67H450AFNG x2 + Pololu #5211 N20 30:1
  *   - Sensors: IR emitter/receiver pairs x4
- *   - Debug:   CMIS-DAP w/ Level Shifter
+ *   - Debug:   External CMIS-DAP w/ Level Shifter
  *
  * ___________________________________________________________________________
  * Pin Assignment:
@@ -48,7 +48,11 @@
  * 
  * @note
  *   MCU must be powered at 5V for ADC to function.
- *   See TMPM4KNF10AFG datasheet section 7.2.
+ *   See TMPM4KNF10AFG (TMPM4K Group(2)) datasheet section 7.2.
+ * 	 
+ *   Reference Documents (Toshiba):
+ *   - Product Info:  https://toshiba.semicon-storage.com/info/TXZP-PINFO-M4K(2)_en_20231225.pdf?did=70854
+ *   - TMPM4K Group(2) Datasheet: https://toshiba.semicon-storage.com/info/TMPM4KNF10AFG_datasheet_en_20250516.pdf?did=155921&prodName=TMPM4KNF10AFG
  *
  * Copyright (c) [Kevin Le] 2026
  ******************************************************************************
@@ -58,25 +62,23 @@
 /* Inclutions */
 #include "TMPM4KyA.h"
 #include "system_TMPM4KyA.h"
-#include "drivers/gpio.h"
-#include "drivers/timer32A.h"
-#include "drivers/encoder32A.h"
-#include "drivers/dma.h"
-#include "drivers/adc.h"
+#include "modules/ctrlTick.h"
+#include "modules/irSensor.h"
+#include "modules/motor.h"
 
 
-void DriverInit(void);
 
 int main()
 {
 	SystemInit();								/* Initialize system clock and peripherals */
-	DriverInit();
-
 	CtrlTick_Init();
+	IR_Init();
+	Motor_Init();
+	
 
 	while(1)
 	{
-		if (CtrlTick_GetAndClear()) 
+		if ( CtrlTick_GetAndClear() ) 
 		{
             /* control Logic to be implemented */
         }
@@ -85,18 +87,6 @@ int main()
 	return 0;
 }
 
-/**
- * @brief  Initializes the Drivers
- * @note   
- */
-void DriverInit(void)
-{
-	GPIO_Init();		/* GPIO     */
-	T32A_Init();		/* Timer32A */
-	ENC32A_Init();		/* Encoder  */
-	DMAC_Init();		/* Direct Memory Access Controller  */
-	ADC_Init();			/* Analog to Discrete */
-}
 
 
 
